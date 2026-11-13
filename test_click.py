@@ -14,6 +14,7 @@ ax.grid(True)
 
 
 points = []
+EPS = 1e-9
 def onclick(event):
     if not hasattr(onclick, 'cnt'):
         onclick.cnt = 0
@@ -47,5 +48,22 @@ def onclick(event):
     )
     fig.canvas.draw_idle()
 
-fig.canvas.mpl_connect('button_press_event', onclick)
-plt.show()
+
+def restoreline(point_1, point_2):
+    x1, y1 = point_1[0], point_1[1]
+    x2, y2 = point_2[0], point_2[1]
+    if abs(x2-x1) < EPS:
+        return None
+    k = (y2-y1)/(x2-x1)
+    b = y1 - k*x1
+    return k, b
+#
+# fig.canvas.mpl_connect('button_press_event', onclick)
+#
+# plt.show()
+print(restoreline((3, 4),(4, 6)))
+print(restoreline((3, 4),(6, 4)))
+# print(restoreline((3, 4),(3, 6)))
+print(0.1+0.2==0.3)
+print(0.1+0.2)
+print(EPS)
